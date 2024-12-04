@@ -1,4 +1,4 @@
-package
+package day
 
 import (
 	"testing"

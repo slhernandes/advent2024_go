@@ -1,6 +1,5 @@
-package 
+package day
 
-import "errors"
 
 func PartOne(s string) (int,error) {
 	return 0, nil
