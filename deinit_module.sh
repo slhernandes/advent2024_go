@@ -10,7 +10,7 @@ if [ -d "${DIRNAME}" ]; then
       rm -r ${DIRNAME}
       ;;
     *)
-      :
+      echo "Canceled deinit for ${DIRNAME}."
       ;;
   esac
 else
