@@ -1,4 +1,4 @@
-package day4
+package aoc
 
 import (
 	"aoc/lib"

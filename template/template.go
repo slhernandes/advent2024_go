@@ -1,4 +1,4 @@
-package day
+package aoc
 
 
 func PartOne(s string) (int,error) {

@@ -1,4 +1,4 @@
-package day
+package aoc
 
 import (
 	"aoc/lib"
@@ -16,14 +16,10 @@ const (
 	Left
 )
 
-type Coordinate struct {
-	x, y int
-}
-
-func PrintVis(grid []string, vis map[Coordinate]Direction) {
+func PrintVis(grid []string, vis map[lib.Coordinate]Direction) {
 	for i, v := range grid {
 		for j, c := range v {
-			if _, ok := vis[Coordinate{i, j}]; ok {
+			if _, ok := vis[lib.Coordinate{X: i, Y: j}]; ok {
 				fmt.Printf("X")
 			} else {
 				fmt.Printf("%c", c)
@@ -33,8 +29,8 @@ func PrintVis(grid []string, vis map[Coordinate]Direction) {
 	}
 }
 
-func ValidCoordinate(coord Coordinate, max_row int, max_col int) bool {
-	return coord.x >= 0 && coord.x < max_row && coord.y >= 0 && coord.y < max_col
+func ValidCoordinate(coord lib.Coordinate, max_row int, max_col int) bool {
+	return coord.X >= 0 && coord.X < max_row && coord.Y >= 0 && coord.Y < max_col
 }
 
 func DirToIdx(dir Direction) int {
@@ -46,7 +42,7 @@ func DirToIdx(dir Direction) int {
 	return ret
 }
 
-func Simulate(grid []string, coord Coordinate, dir Direction, vis *map[Coordinate]Direction, uturn int) (bool, error) {
+func Simulate(grid []string, coord lib.Coordinate, dir Direction, vis *map[lib.Coordinate]Direction, uturn int) (bool, error) {
 	if len(grid) == 0 {
 		return false, errors.New("0 row received")
 	}
@@ -67,10 +63,10 @@ func Simulate(grid []string, coord Coordinate, dir Direction, vis *map[Coordinat
 
 	offset := []int{-1, 0, 1, 0, -1}
 	dir_idx := DirToIdx(dir)
-	next_candidate := Coordinate{coord.x + offset[dir_idx], coord.y + offset[dir_idx+1]}
+	next_candidate := lib.Coordinate{X: coord.X + offset[dir_idx], Y: coord.Y + offset[dir_idx+1]}
 	if ValidCoordinate(next_candidate, len(grid), len(grid[0])) {
 		var res bool
-		if grid[next_candidate.x][next_candidate.y] == '#' {
+		if grid[next_candidate.X][next_candidate.Y] == '#' {
 			next_dir := (dir_idx+1)%4
 			tmp, err := Simulate(grid, coord, Direction(1<<next_dir), vis, uturn)
 			if err != nil {
@@ -95,16 +91,16 @@ func Simulate(grid []string, coord Coordinate, dir Direction, vis *map[Coordinat
 	return false, nil
 }
 
-func FindStart(grid []string) (Coordinate, Direction, error) {
+func FindStart(grid []string) (lib.Coordinate, Direction, error) {
 	dir := []rune{'^', '>', 'v', '<'}
 	for x, v := range grid {
 		for y, c := range v {
 			if slices.Contains(dir, c) {
-				return Coordinate{x, y}, Direction(1<<slices.Index(dir, c)), nil
+				return lib.Coordinate{X: x, Y: y}, Direction(1<<slices.Index(dir, c)), nil
 			}
 		}
 	}
-	return Coordinate{}, Up, errors.New("Grid does not have start")
+	return lib.Coordinate{}, Up, errors.New("Grid does not have start")
 }
 
 func UTurned(dir Direction) bool {
@@ -118,7 +114,7 @@ func UTurned(dir Direction) bool {
 
 func PartOne(s string) (int,error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
-	vis := make(map[Coordinate]Direction)
+	vis := make(map[lib.Coordinate]Direction)
 	start, dir, err := FindStart(grid)
 	if err != nil {
 		return 0, err
@@ -151,7 +147,7 @@ func PartTwo(s string) (int,error) {
 
 	grid := lib.SplitFilterEmpty(s, "\n")
 	width := len(grid[0])
-	vis := make(map[Coordinate]Direction)
+	vis := make(map[lib.Coordinate]Direction)
 	start, dir, err := FindStart(grid)
 	if err != nil {
 		return 0, err
@@ -164,12 +160,12 @@ func PartTwo(s string) (int,error) {
 
 	ret := 0
 	for i := range vis {
-		cont, new_s := AlterString(s, i.y + i.x * (width+1))
+		cont, new_s := AlterString(s, i.Y + i.X * (width+1))
 		if cont {
 			continue
 		}
 		grid := lib.SplitFilterEmpty(new_s, "\n")
-		vis := make(map[Coordinate]Direction)
+		vis := make(map[lib.Coordinate]Direction)
 		start, dir, err := FindStart(grid)
 		if err != nil {
 			return 0, err

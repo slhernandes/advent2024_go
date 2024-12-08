@@ -5,6 +5,18 @@ import (
 	"strings"
 )
 
+type Coordinate struct {
+	X, Y int
+}
+
+func Diff(a Coordinate, b Coordinate) Coordinate {
+	return Coordinate{a.X - b.X, a.Y - b.Y}
+}
+
+func Add(a Coordinate, b Coordinate) Coordinate {
+	return Coordinate{a.X + b.X, a.Y + b.Y}
+}
+
 func SplitFilterEmpty(s string, sep string) []string {
 	tmp := strings.Split(s, sep)
 	var ret []string

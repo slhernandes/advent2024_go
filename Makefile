@@ -1,4 +1,4 @@
-MOD_DIRS=$(shell find . -type d | grep day | xargs)
+MOD_DIRS=$(shell find . -type d | grep day | sort | xargs)
 MOD_DIRS_DEBUG=$(shell find . -type d | grep day | sed "s/$$/_debug/g" | xargs)
 
 deinit_%:
@@ -19,6 +19,9 @@ $(MOD_DIRS):
 $(MOD_DIRS_DEBUG):
 	$(eval DIRNAME=$(subst _debug,,$(@)))
 	cd $(DIRNAME) && $(MAKE) debug
+
+all: $(MOD_DIRS)
+alld: $(MOD_DIRS_DEBUG)
 
 
 .PHONY: $(MOD_DIRS) init_% deinit_% $(MOD_DIRS_DEBUG)
