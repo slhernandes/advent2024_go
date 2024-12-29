@@ -22,7 +22,7 @@ func Partition(nums []int, spaces []int, length int) ([]int, []int) {
 	var rest []int
 	acc := 0
 	i, j := 0, 0
-	for ;; {
+	for {
 		if i < len(nums) {
 			acc += nums[i]
 			i++
@@ -31,7 +31,7 @@ func Partition(nums []int, spaces []int, length int) ([]int, []int) {
 			rest = lib.ReverseSlice(nums[i-1:])
 			nums = nums[:i]
 			nums[i-1] = nums[i-1] - acc + length
-			rest[len(rest) - 1] = acc - length
+			rest[len(rest)-1] = acc - length
 			break
 		}
 		if j < len(spaces) {
@@ -46,10 +46,10 @@ func Partition(nums []int, spaces []int, length int) ([]int, []int) {
 }
 
 func Coeff(start int, count int) int {
-	return (start + count) * (start + count - 1) / 2 - start * (start - 1) / 2
+	return (start+count)*(start+count-1)/2 - start*(start-1)/2
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	nums := []int{}
 	spaces := []int{}
 	for i, v := range s {
@@ -58,9 +58,9 @@ func PartOne(s string) (int,error) {
 		}
 		tmp, err := strconv.Atoi(string(v))
 		if err != nil {
-		  return 0, err
+			return 0, err
 		}
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			nums = append(nums, tmp)
 		} else {
 			spaces = append(spaces, tmp)
@@ -70,7 +70,7 @@ func PartOne(s string) (int,error) {
 	length_nums := len(nums)
 	nums, rest := Partition(nums, spaces, sum_nums)
 	ret := 0
-	now_r, now_l, idx := length_nums - 1, 0, 0
+	now_r, now_l, idx := length_nums-1, 0, 0
 	for even_done, odd_done, parity := false, false, false; even_done == false || odd_done == false; {
 		if parity {
 			if len(spaces) == 0 || len(rest) == 0 {
@@ -113,7 +113,7 @@ func PartOne(s string) (int,error) {
 	return ret, nil
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	nums := []pii{}
 	spaces := []pii{}
 	acc := 0
@@ -123,9 +123,9 @@ func PartTwo(s string) (int,error) {
 		}
 		tmp, err := strconv.Atoi(string(v))
 		if err != nil {
-		  return 0, err
+			return 0, err
 		}
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			nums = append(nums, pii{acc, tmp})
 			acc += tmp
 		} else {
@@ -156,5 +156,5 @@ func PartTwo(s string) (int,error) {
 		ret += Coeff(v.fst, v.snd) * i
 	}
 
-  return ret, nil
+	return ret, nil
 }

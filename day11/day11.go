@@ -31,12 +31,12 @@ func ProcessInputMap(nums []int64, count int) int {
 			temp := helper(1, count-1)
 			dict[ident{num: 0, cnt: count}] = temp
 			return temp
-		} else if num_len % 2 == 0 {
-			div := int64(math.Pow10(num_len/2))
+		} else if num_len%2 == 0 {
+			div := int64(math.Pow10(num_len / 2))
 			left := helper(num/div, count-1)
 			right := helper(num%div, count-1)
-			dict[ident{num: num/div, cnt: count-1}] = left
-			dict[ident{num: num%div, cnt: count-1}] = right
+			dict[ident{num: num / div, cnt: count - 1}] = left
+			dict[ident{num: num % div, cnt: count - 1}] = right
 			return left + right
 		}
 		temp := helper(num*2024, count-1)
@@ -50,7 +50,7 @@ func ProcessInputMap(nums []int64, count int) int {
 	return ret
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	s_new := lib.SplitFilterEmpty(s, "\n")[0]
 	temp := lib.SplitFilterEmpty(s_new, " ")
 	nums := make([]int64, 0)
@@ -64,7 +64,8 @@ func PartOne(s string) (int,error) {
 
 	return ret, nil
 }
-func PartTwo(s string) (int,error) {
+
+func PartTwo(s string) (int, error) {
 	s_new := lib.SplitFilterEmpty(s, "\n")[0]
 	temp := lib.SplitFilterEmpty(s_new, " ")
 	nums := make([]int64, 0)
@@ -73,6 +74,7 @@ func PartTwo(s string) (int,error) {
 		temp_num, _ := strconv.Atoi(v)
 		nums = append(nums, int64(temp_num))
 	}
+
 	ret := ProcessInputMap(nums, 75)
 
 	return ret, nil

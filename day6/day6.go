@@ -10,7 +10,7 @@ import (
 type Direction int
 
 const (
-	Up Direction = 1<<iota
+	Up Direction = 1 << iota
 	Right
 	Down
 	Left
@@ -36,7 +36,7 @@ func ValidCoordinate(coord lib.Coordinate, max_row int, max_col int) bool {
 func DirToIdx(dir Direction) int {
 	ret := 0
 	cur := 1
-	for ; cur & int(dir) == 0; cur = cur<<1 {
+	for ; cur&int(dir) == 0; cur = cur << 1 {
 		ret++
 	}
 	return ret
@@ -56,7 +56,7 @@ func Simulate(grid []string, coord lib.Coordinate, dir Direction, vis *map[lib.C
 
 	dir_cand, ok := (*vis)[coord]
 	if ok {
-		if dir_cand & dir != 0 {
+		if dir_cand&dir != 0 {
 			return true, nil
 		}
 	}
@@ -67,7 +67,7 @@ func Simulate(grid []string, coord lib.Coordinate, dir Direction, vis *map[lib.C
 	if ValidCoordinate(next_candidate, len(grid), len(grid[0])) {
 		var res bool
 		if grid[next_candidate.X][next_candidate.Y] == '#' {
-			next_dir := (dir_idx+1)%4
+			next_dir := (dir_idx + 1) % 4
 			tmp, err := Simulate(grid, coord, Direction(1<<next_dir), vis, uturn)
 			if err != nil {
 				return false, err
@@ -96,7 +96,7 @@ func FindStart(grid []string) (lib.Coordinate, Direction, error) {
 	for x, v := range grid {
 		for y, c := range v {
 			if slices.Contains(dir, c) {
-				return lib.Coordinate{X: x, Y: y}, Direction(1<<slices.Index(dir, c)), nil
+				return lib.Coordinate{X: x, Y: y}, Direction(1 << slices.Index(dir, c)), nil
 			}
 		}
 	}
@@ -105,14 +105,14 @@ func FindStart(grid []string) (lib.Coordinate, Direction, error) {
 
 func UTurned(dir Direction) bool {
 	for i := 0; i < 4; i++ {
-		if int(dir) & (1<<i) == 15 {
+		if int(dir)&(1<<i) == 15 {
 			return true
 		}
 	}
 	return false
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
 	vis := make(map[lib.Coordinate]Direction)
 	start, dir, err := FindStart(grid)
@@ -143,7 +143,7 @@ func AlterString(s string, i int) (bool, string) {
 	return false, string(r)
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 
 	grid := lib.SplitFilterEmpty(s, "\n")
 	width := len(grid[0])
@@ -160,7 +160,7 @@ func PartTwo(s string) (int,error) {
 
 	ret := 0
 	for i := range vis {
-		cont, new_s := AlterString(s, i.Y + i.X * (width+1))
+		cont, new_s := AlterString(s, i.Y+i.X*(width+1))
 		if cont {
 			continue
 		}

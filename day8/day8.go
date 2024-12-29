@@ -19,7 +19,7 @@ func PrintGrid(grid []string, anti map[lib.Coordinate]bool) {
 	}
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
 	atns := make(map[rune][]lib.Coordinate)
 	anti := make(map[lib.Coordinate]bool)
@@ -31,7 +31,7 @@ func PartOne(s string) (int,error) {
 func FindAntiNodes(grid []string, atns map[rune][]lib.Coordinate, anti *map[lib.Coordinate]bool) {
 	for _, v := range atns {
 		for i := 0; i < len(v)-1; i++ {
-			for j := i+1; j < len(v); j++ {
+			for j := i + 1; j < len(v); j++ {
 				diff_1 := lib.Diff(v[i], v[j])
 				anti_1 := lib.Add(v[i], diff_1)
 				diff_2 := lib.Diff(v[j], v[i])
@@ -48,7 +48,7 @@ func FindAntiNodes(grid []string, atns map[rune][]lib.Coordinate, anti *map[lib.
 }
 
 func Contained(a lib.Coordinate, x int, y int) bool {
-	return  a.X >= 0 && a.Y >= 0 && a.X < x && a.Y < y;
+	return a.X >= 0 && a.Y >= 0 && a.X < x && a.Y < y
 }
 
 func FindAntennae(grid []string, atns *map[rune][]lib.Coordinate) {
@@ -61,28 +61,28 @@ func FindAntennae(grid []string, atns *map[rune][]lib.Coordinate) {
 	}
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
 	atns := make(map[rune][]lib.Coordinate)
 	anti := make(map[lib.Coordinate]bool)
 	FindAntennae(grid, &atns)
 	FindAntiNodesAdv(grid, atns, &anti)
-  return len(anti), nil
+	return len(anti), nil
 }
 
 func FindAntiNodesAdv(grid []string, atns map[rune][]lib.Coordinate, anti *map[lib.Coordinate]bool) {
 	for _, v := range atns {
 		for i := 0; i < len(v)-1; i++ {
-			for j := i+1; j < len(v); j++ {
+			for j := i + 1; j < len(v); j++ {
 				(*anti)[v[i]] = true
 				delta := lib.Diff(v[i], v[j])
 				now := v[i]
-				for  ; Contained(lib.Add(now, delta), len(grid), len(grid[0])); now = lib.Add(now, delta) {
+				for ; Contained(lib.Add(now, delta), len(grid), len(grid[0])); now = lib.Add(now, delta) {
 					(*anti)[now] = true
 				}
 				(*anti)[now] = true
 				now = v[i]
-				for  ; Contained(lib.Diff(now, delta), len(grid), len(grid[0])); now = lib.Diff(now, delta) {
+				for ; Contained(lib.Diff(now, delta), len(grid), len(grid[0])); now = lib.Diff(now, delta) {
 					(*anti)[now] = true
 				}
 				(*anti)[now] = true

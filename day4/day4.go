@@ -16,7 +16,7 @@ func Verticals(ss []string) ([]string, error) {
 	cols := len(ss[0])
 	var ret []string
 
-	for i := 0;i < cols; i++ {
+	for i := 0; i < cols; i++ {
 		var tmp strings.Builder
 		for j := 0; j < rows; j++ {
 			tmp.WriteByte(ss[j][i])
@@ -81,7 +81,7 @@ func XMAS(s []string) (int, error) {
 				continue
 			}
 			for k := 0; k < 4; k++ {
-				err := str.WriteByte(s[i + offset[k]][j + offset[k + 1]])
+				err := str.WriteByte(s[i+offset[k]][j+offset[k+1]])
 
 				if err != nil {
 					return 0, err
@@ -93,11 +93,11 @@ func XMAS(s []string) (int, error) {
 			}
 		}
 	}
-	
+
 	return ret, nil
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
 	diag, err := Diagonals(grid)
 	if err != nil {
@@ -113,7 +113,6 @@ func PartOne(s string) (int,error) {
 	if err != nil {
 		return 0, err
 	}
-
 
 	ret := 0
 
@@ -140,7 +139,7 @@ func PartOne(s string) (int,error) {
 	return ret, nil
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	grid := lib.SplitFilterEmpty(s, "\n")
-  return XMAS(grid)
+	return XMAS(grid)
 }

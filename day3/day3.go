@@ -43,7 +43,7 @@ func CalculateInput(s string) (int, error) {
 	return ret, nil
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	re, err := regexp.Compile(`mul\((\d+),(\d+)\)`)
 	if err != nil {
 		return 0, err
@@ -61,7 +61,7 @@ func PartOne(s string) (int,error) {
 	return ret, nil
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	ret, err := CalculateInput(s)
 	if err != nil {
 		return 0, err

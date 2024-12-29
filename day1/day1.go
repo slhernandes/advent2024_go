@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 )
-	
+
 func filterEmpty(s []string) []string {
 	var ret []string
 	for _, val := range s {
@@ -47,7 +47,7 @@ func parseInput(s string) ([]int, []int, error) {
 	return fst, snd, nil
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	fst, snd, err := parseInput(s)
 
 	if err != nil {
@@ -69,7 +69,7 @@ func PartOne(s string) (int,error) {
 
 	return ret, nil
 }
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	dict := make(map[int]int)
 	fst, snd, err := parseInput(s)
 
@@ -87,5 +87,5 @@ func PartTwo(s string) (int,error) {
 		ret += key * dict[key]
 	}
 
-  return ret, nil
+	return ret, nil
 }

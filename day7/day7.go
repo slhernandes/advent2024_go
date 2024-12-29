@@ -18,7 +18,7 @@ func MakeTarget(target int64, nums []int64) bool {
 
 	candAdd := append([]int64(nil), nums...)
 	candAdd[1] += candAdd[0]
-	
+
 	if candMult[1] > target {
 		multRes = false
 	} else {
@@ -51,12 +51,12 @@ func MakeTargetConcat(target int64, nums []int64) bool {
 	candAdd := append([]int64(nil), nums...)
 	candAdd[1] += candAdd[0]
 
-	Digits := func (a int64) int {
+	Digits := func(a int64) int {
 		return int(math.Ceil(math.Log10(float64(a))))
 	}
 
 	candCat := append([]int64(nil), nums...)
-	if Digits(target) < Digits(candCat[0]) + Digits(candCat[1]) {
+	if Digits(target) < Digits(candCat[0])+Digits(candCat[1]) {
 		catRes = false
 	} else {
 		candCat[1] = ConcatInts(candCat[0], candCat[1])
@@ -66,7 +66,7 @@ func MakeTargetConcat(target int64, nums []int64) bool {
 			catRes = MakeTargetConcat(target, candCat[1:])
 		}
 	}
-	
+
 	if candMult[1] > target {
 		multRes = false
 	} else {
@@ -82,9 +82,9 @@ func MakeTargetConcat(target int64, nums []int64) bool {
 	return addRes || multRes || catRes
 }
 
-func PartOne(s string) (int64,error) {
+func PartOne(s string) (int64, error) {
 	lines := lib.SplitFilterEmpty(s, "\n")
-  ret := int64(0)
+	ret := int64(0)
 
 	for _, v := range lines {
 		tmp := lib.SplitFilterEmpty(v, ": ")
@@ -105,9 +105,9 @@ func PartOne(s string) (int64,error) {
 
 	return ret, nil
 }
-func PartTwo(s string) (int64,error) {
+func PartTwo(s string) (int64, error) {
 	lines := lib.SplitFilterEmpty(s, "\n")
-  ret := int64(0)
+	ret := int64(0)
 
 	for _, v := range lines {
 		tmp := lib.SplitFilterEmpty(v, ": ")

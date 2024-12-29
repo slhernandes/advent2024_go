@@ -40,7 +40,7 @@ func ParsePages(s string) [][]int {
 }
 
 func CheckPages(pages []int, rules map[int](*big.Int)) int {
-	mid := len(pages)/2
+	mid := len(pages) / 2
 	now := big.NewInt(0)
 	for _, v := range slices.Backward(pages) {
 		check := big.NewInt(0)
@@ -59,7 +59,7 @@ func CheckPages(pages []int, rules map[int](*big.Int)) int {
 }
 
 func SortedMid(pages []int, rules map[int](*big.Int)) (int, error) {
-	mid := len(pages)/2
+	mid := len(pages) / 2
 	now := big.NewInt(0)
 	var reIndex []int
 	for i := len(pages) - 1; i >= 0; i-- {
@@ -109,7 +109,7 @@ func SortedMid(pages []int, rules map[int](*big.Int)) (int, error) {
 	return pages[mid], nil
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	sl := lib.SplitFilterEmpty(s, "\n\n")
 	rules := sl[0]
 	pages := sl[1]
@@ -123,7 +123,7 @@ func PartOne(s string) (int,error) {
 	return ret, nil
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	sl := lib.SplitFilterEmpty(s, "\n\n")
 	rules := sl[0]
 	pages := sl[1]
@@ -139,11 +139,11 @@ func PartTwo(s string) (int,error) {
 
 	ret := 0
 	for _, val := range unsorted {
-		 tmp, err := SortedMid(pageArr[val], ruleMap)
-		 if err != nil {
-		 	return 0, err
-		 }
-		 ret += tmp
+		tmp, err := SortedMid(pageArr[val], ruleMap)
+		if err != nil {
+			return 0, err
+		}
+		ret += tmp
 	}
 	return ret, nil
 }

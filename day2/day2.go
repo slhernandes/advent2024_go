@@ -9,7 +9,7 @@ func filterEmpty(sl []string) []string {
 	var ret []string
 	for _, val := range sl {
 		if len(val) != 0 {
-			ret = append(ret, val);
+			ret = append(ret, val)
 		}
 	}
 	return ret
@@ -37,7 +37,7 @@ func isSafeDecr(sl []string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if fst - snd >= 1 && fst - snd <= 3 {
+	if fst-snd >= 1 && fst-snd <= 3 {
 		return isSafeDecr(sl[1:])
 	}
 	return false, nil
@@ -55,7 +55,7 @@ func isSafeIncr(sl []string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if snd - fst >= 1 && snd - fst <= 3 {
+	if snd-fst >= 1 && snd-fst <= 3 {
 		return isSafeIncr(sl[1:])
 	}
 	return false, nil
@@ -77,14 +77,14 @@ func isSafeDecrDampener(sl []string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	goodFstPair := fst - snd >= 1 && fst - snd <= 3
-	goodSndPair := fst - thd >= 1 && fst - thd <= 3
+	goodFstPair := fst-snd >= 1 && fst-snd <= 3
+	goodSndPair := fst-thd >= 1 && fst-thd <= 3
 	if goodFstPair && goodSndPair {
-		fstRes, err := isSafeDecrDampener(sl[1:]) 
+		fstRes, err := isSafeDecrDampener(sl[1:])
 		if err != nil {
 			return false, err
 		}
-		sndRes, err := isSafeDecr(sl[2:]) 
+		sndRes, err := isSafeDecr(sl[2:])
 		if err != nil {
 			return false, err
 		}
@@ -115,14 +115,14 @@ func isSafeIncrDampener(sl []string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	goodFstPair := snd - fst >= 1 && snd - fst <= 3
-	goodSndPair := thd - fst >= 1 && thd - fst <= 3
+	goodFstPair := snd-fst >= 1 && snd-fst <= 3
+	goodSndPair := thd-fst >= 1 && thd-fst <= 3
 	if goodFstPair && goodSndPair {
-		fstRes, err := isSafeIncrDampener(sl[1:]) 
+		fstRes, err := isSafeIncrDampener(sl[1:])
 		if err != nil {
 			return false, err
 		}
-		sndRes, err := isSafeIncr(sl[2:]) 
+		sndRes, err := isSafeIncr(sl[2:])
 		if err != nil {
 			return false, err
 		}
@@ -173,7 +173,7 @@ func isSafeDampener(sl []string) (bool, error) {
 	return incrSafeDmp || decrSafeDmp || decrSafe || incrSafe, nil
 }
 
-func PartOne(s string) (int,error) {
+func PartOne(s string) (int, error) {
 	var ret int
 	input := parseInput(s)
 	for _, v := range input {
@@ -188,7 +188,7 @@ func PartOne(s string) (int,error) {
 	return ret, nil
 }
 
-func PartTwo(s string) (int,error) {
+func PartTwo(s string) (int, error) {
 	var ret int
 	input := parseInput(s)
 	for _, v := range input {
